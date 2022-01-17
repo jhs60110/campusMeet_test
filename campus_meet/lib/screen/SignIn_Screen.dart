@@ -85,7 +85,7 @@ class _State extends State<LoginPage> {
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => DropDown() ),);
+                                MaterialPageRoute(builder: (context) => SignUpScreen() ),);
                                 //요기서 화면 바 SignUpScreen() RadioApp() DropDown()
                             //signup screen
                           },

@@ -19,10 +19,11 @@ class _State extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nicknameController = TextEditingController();
   TextEditingController introductionController = TextEditingController();
-
+  String dropdownvalue = '24';
+  var items =  ['19', '20', '21', '22', '23', '24', '25'];
   Gender? _gender = Gender.MAN;
-var _ageList = ['19', '20', '21', '22', '23', '24', '25'];
-var _selectedValue = '24';
+/*var _ageList = ['19', '20', '21', '22', '23', '24', '25'];
+var _selectedValue = '24';8*/
 
   @override
   Widget build(BuildContext context) {
@@ -134,18 +135,17 @@ var _selectedValue = '24';
                   child: Center(
 
                     child: DropdownButton(
-                      value: _selectedValue,
-                      items: _ageList.map(
-                              (value){
-                                return DropdownMenuItem(
-                                    value: 'value',
-                                    child: Text(value),
-                                );
-                              },
+                      value: dropdownvalue,
+                      items:items.map((String items) {
+                        return DropdownMenuItem(
+                            value: items,
+                            child: Text(items)
+                        );
+                      }
                       ).toList(),
-                      onChanged: (value){
+                      onChanged: (newValue){
                         setState(() {
-                          _selectedValue = value as String;
+                          dropdownvalue = newValue as String;
                         });
                       },
                     ),
