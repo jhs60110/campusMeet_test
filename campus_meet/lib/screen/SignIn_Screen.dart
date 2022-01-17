@@ -1,6 +1,6 @@
 import 'package:campus_meet/screen/SignUp_Screen.dart';
 import 'package:flutter/material.dart';
-import 'package:campus_meet/screen/radio_test.dart';
+import 'package:campus_meet/screen/dropdown.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -85,8 +85,8 @@ class _State extends State<LoginPage> {
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpScreen() ),);
-                                //요기서 화면 바 SignUpScreen() RadioApp()
+                                MaterialPageRoute(builder: (context) => DropDown() ),);
+                                //요기서 화면 바 SignUpScreen() RadioApp() DropDown()
                             //signup screen
                           },
                         )

@@ -21,7 +21,7 @@ class _State extends State<SignUpScreen> {
   TextEditingController introductionController = TextEditingController();
 
   Gender? _gender = Gender.MAN;
-final _ageList = ['19', '20', '21', '22', '23', '24', '25'];
+var _ageList = ['19', '20', '21', '22', '23', '24', '25'];
 var _selectedValue = '24';
 
   @override
@@ -129,12 +129,12 @@ var _selectedValue = '24';
                   ),
                 ),*/
 
-            /*    Container(
+                Container(
                   padding: EdgeInsets.all(10),
                   child: Center(
 
                     child: DropdownButton(
-                      value: _selectedValue.isNotEmpty ? _selectedValue : null,
+                      value: _selectedValue,
                       items: _ageList.map(
                               (value){
                                 return DropdownMenuItem(
@@ -150,7 +150,7 @@ var _selectedValue = '24';
                       },
                     ),
                   )
-                ),*/
+                ),
           /////////나이  끝
                 Container(
                   padding: EdgeInsets.all(10),
