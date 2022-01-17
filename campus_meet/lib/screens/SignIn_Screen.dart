@@ -1,6 +1,5 @@
-import 'package:campus_meet/screen/SignUp_Screen.dart';
+import 'package:campus_meet/screens/SignUp_Screen.dart';
 import 'package:flutter/material.dart';
-import 'package:campus_meet/screen/dropdown.dart';
 
 class LoginPage extends StatefulWidget {
 

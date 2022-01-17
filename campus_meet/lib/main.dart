@@ -1,9 +1,9 @@
-import 'package:campus_meet/screen/home_screen.dart';
-import 'package:campus_meet/screen/my_meeting_screen.dart';
-import 'package:campus_meet/screen/my_page_screen.dart';
-import 'package:campus_meet/widget/bottom_bar.dart';
+import 'package:campus_meet/screens/home_screen.dart';
+import 'package:campus_meet/screens/my_meeting_screen.dart';
+import 'package:campus_meet/screens/my_page_screen.dart';
+import 'package:campus_meet/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:campus_meet/screen/SignIn_Screen.dart';
+import 'package:campus_meet/screens/SignIn_Screen.dart';
 
 
 

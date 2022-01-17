@@ -7,8 +7,6 @@ class SignUpScreen extends StatefulWidget {
   State<StatefulWidget> createState() => new _State();
 }
 
-
-
 class _State extends State<SignUpScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController universityController = TextEditingController();
@@ -22,6 +20,8 @@ class _State extends State<SignUpScreen> {
   String dropdownvalue = '24';
   var items =  ['19', '20', '21', '22', '23', '24', '25'];
   Gender? _gender = Gender.MAN;
+  // 학번 입력받을때 숫자패드만 보이게 아래 참고
+  // https://stackoverflow.com/questions/49577781/how-to-create-number-input-field-in-flutter
 /*var _ageList = ['19', '20', '21', '22', '23', '24', '25'];
 var _selectedValue = '24';8*/
 
@@ -77,31 +77,44 @@ var _selectedValue = '24';8*/
                     ),
                   ),
                 ),
-                ListTile(
-                  title: const Text('여성'),
-                  leading: Radio<Gender>(
-                    value: Gender.WOMEN,
-                    groupValue: _gender,
-                    onChanged: (Gender? value) {
-                      setState(() {
-                        _gender = value;
-                      });
-                    },
-                  ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width*0.35,
+                      child: ListTile(
+                        title: const Text('여성'),
+                        leading: Radio<Gender>(
+                          value: Gender.WOMEN,
+                          groupValue: _gender,
+                          onChanged: (Gender? value) {
+                            setState(() {
+                              _gender = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width*0.4,
+                      child: ListTile(
+                        title: const Text('남성'),
+                        leading: Radio<Gender>(
+                          value: Gender.MAN,
+                          groupValue: _gender,
+                          onChanged: (Gender? value) {
+                            setState(() {
+                              _gender = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 // https://api.flutter.dev/flutter/material/Radio-class.html 값을 어떻게 갖고오
-                ListTile(
-                  title: const Text('남성'),
-                  leading: Radio<Gender>(
-                    value: Gender.MAN,
-                    groupValue: _gender,
-                    onChanged: (Gender? value) {
-                      setState(() {
-                        _gender = value;
-                      });
-                    },
-                  ),
-                ),
+
 
                 /*Container(
 
