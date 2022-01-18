@@ -32,6 +32,7 @@ var _selectedValue = '24';8*/
   @override
   Widget build(BuildContext context) {
 
+    Color color = Color(0xffff375c);
     List month =[];
       for (int i = 1; i < 13; i++){
         String ii = i.toString();
@@ -41,11 +42,14 @@ var _selectedValue = '24';8*/
     for (int i = 1; i < 32; i++){
       String ii = i.toString();
       day.add(ii);
-    }    //잠만 월마다 일이 달라.....ㅠ
+    }    //1 3 5 7 8 10 12 <- 31일
+         //2월은? 2개?
+    //4 6 9 11 <- 30일
 
     return Scaffold(
         appBar: AppBar(
           title: Text('CampusMeet'),
+          backgroundColor: color,
         ),
          body: Padding(
             padding: EdgeInsets.all(10),
@@ -53,14 +57,15 @@ var _selectedValue = '24';8*/
               children: <Widget>[
 
                 Container( //회원가입 타이
-                    alignment: Alignment.center,
+                    alignment: Alignment.centerLeft,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      '회원가입!',
+                      '거의 다 왔어요! \n회원정보를 입력해주세요!🐣',
+                      //textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: Colors.pinkAccent,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
-                          fontSize: 30),
+                          fontSize: 25),
                     )),
 
                 Container(
@@ -76,21 +81,109 @@ var _selectedValue = '24';8*/
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: universityController,
+                    controller: studentIDController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: '학교', //텍스트필드말고 학교찾기
+                      labelText: '학번', //텍스트필드말고 숫자만?
                     ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: studentIDController,
+                    controller: nicknameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: '학번', //텍스트필드말고 숫자만?
+                      labelText: '별명',
                     ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: TextField( //비밀번호 조건
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                    ),
+                  ),
+                ),
+
+                //비밀번호 확인
+
+                /*Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    controller: universityController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '학교', //텍스트필드말고 학교찾기 P따로 뺴
+                    ),
+                  ),
+                ),*/
+
+
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox( //padding설
+                        width: MediaQuery.of(context).size.width*0.35,
+                        child: TextField( //int만 두자리 받
+                          controller: yearController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: '년도',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.35,
+                          child: Center(
+                            child: DropdownButton(
+                              value: montDropdownvalue,
+                              items:month.map((month) {
+                                return DropdownMenuItem(
+                                    value: month,
+                                    child: Text(month)
+                                );
+                              }
+                              ).toList(),
+                              onChanged: (newValue){
+                                setState(() {
+                                  montDropdownvalue = newValue as String;
+                                });
+                              },
+                            ),
+
+                          )
+                      ),
+                      Container(
+                          padding: EdgeInsets.all(10),
+                          child: Center(
+                            child: DropdownButton(
+                              value: dayDropdownvalue,
+                              items:day.map((day) {
+                                return DropdownMenuItem(
+                                    value: day,
+                                    child: Text(day)
+                                );
+                              }
+                              ).toList(),
+                              onChanged: (newValue){
+                                setState(() {
+                                  dayDropdownvalue = newValue as String;
+                                });
+                              },
+                            ),
+
+                          )
+                      ),
+                    ],
+
+
                   ),
                 ),
 
@@ -131,70 +224,11 @@ var _selectedValue = '24';8*/
                 ),
 // https://api.flutter.dev/flutter/material/Radio-class.html 값을 어떻게 갖고오
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width*0.35,
-                      child: TextField(
-                        controller: yearController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: '년도',
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width*0.35,
-                      child: Center(
-                        child: DropdownButton(
-                          value: montDropdownvalue,
-                          items:month.map((month) {
-                            return DropdownMenuItem(
-                                value: month,
-                                child: Text(month)
-                            );
-                          }
-                          ).toList(),
-                          onChanged: (newValue){
-                            setState(() {
-                              montDropdownvalue = newValue as String;
-                            });
-                          },
-                        ),
-
-                      )
-                    ),
-                    Container(
-                        padding: EdgeInsets.all(10),
-                        child: Center(
-                          child: DropdownButton(
-                            value: dayDropdownvalue,
-                            items:day.map((day) {
-                              return DropdownMenuItem(
-                                  value: day,
-                                  child: Text(day)
-                              );
-                            }
-                            ).toList(),
-                            onChanged: (newValue){
-                              setState(() {
-                                dayDropdownvalue = newValue as String;
-                              });
-                            },
-                          ),
-
-                        )
-                    ),
-                  ],
-
-
-                ),
 
 
 
           /////////나이  끝
-                Container(
+              /*  Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
                     controller: idController,
@@ -203,55 +237,16 @@ var _selectedValue = '24';8*/
                       labelText: 'ID',
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextField(
-                    obscureText: true,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    controller: nicknameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '별명',
-                    ),
-                  ),
-                ),
+                ),아이디는 학교이메일 */
 
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    controller: introductionController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '한줄소개',
-                    ),
-                  ),
-                ),
 
-    // 프로필 사진 (선택사항)
-                FlatButton(
-                  onPressed: (){
-                    //forgot password screen
-                  },
-                  textColor: Colors.pinkAccent,
-                  child: Text(''),
-                ),
                 Container(
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: RaisedButton(
                       textColor: Colors.white,
-                      color: Colors.pinkAccent,
-                      child: Text('Sign Up'),
+                      color: color,
+                      child: Text('확인'),
                       onPressed: () {
                         print(nameController.text);
                         print(universityController.text);
