@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:campus_meet/main.dart';
 enum Gender { WOMEN, MAN }
 
 class SignUpScreen extends StatefulWidget {
@@ -8,6 +8,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _State extends State<SignUpScreen> {
+
   TextEditingController nameController = TextEditingController();
   TextEditingController universityController = TextEditingController();
   TextEditingController studentIDController = TextEditingController();
@@ -17,9 +18,12 @@ class _State extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nicknameController = TextEditingController();
   TextEditingController introductionController = TextEditingController();
-  String dropdownvalue = '24';
-  var items =  ['19', '20', '21', '22', '23', '24', '25'];
+  TextEditingController yearController = TextEditingController();
+  // 안쓰는거 지워 !
+  String montDropdownvalue = '1';
+  String dayDropdownvalue = '1';
   Gender? _gender = Gender.MAN;
+
   // 학번 입력받을때 숫자패드만 보이게 아래 참고
   // https://stackoverflow.com/questions/49577781/how-to-create-number-input-field-in-flutter
 /*var _ageList = ['19', '20', '21', '22', '23', '24', '25'];
@@ -27,6 +31,18 @@ var _selectedValue = '24';8*/
 
   @override
   Widget build(BuildContext context) {
+
+    List month =[];
+      for (int i = 1; i < 13; i++){
+        String ii = i.toString();
+        month.add(ii);
+      }
+    List day =[];
+    for (int i = 1; i < 32; i++){
+      String ii = i.toString();
+      day.add(ii);
+    }    //잠만 월마다 일이 달라.....ㅠ
+
     return Scaffold(
         appBar: AppBar(
           title: Text('CampusMeet'),
@@ -115,55 +131,68 @@ var _selectedValue = '24';8*/
                 ),
 // https://api.flutter.dev/flutter/material/Radio-class.html 값을 어떻게 갖고오
 
-
-                /*Container(
-
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                  title: Text('남자'),
-                  value: Gender.MAN,
-                  groupValue: _gender,
-                  onChanged: (value){
-                    setState(() {
-                      _gender = value;
-                    });
-                  },
-
-                ),),
-*/
- ////////// 나이 시작
-               /* Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    controller: ageController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '나이', //텍스트필드말고 드론다운? 수정불가로
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width*0.35,
+                      child: TextField(
+                        controller: yearController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: '년도',
+                        ),
+                      ),
                     ),
-                  ),
-                ),*/
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width*0.35,
+                      child: Center(
+                        child: DropdownButton(
+                          value: montDropdownvalue,
+                          items:month.map((month) {
+                            return DropdownMenuItem(
+                                value: month,
+                                child: Text(month)
+                            );
+                          }
+                          ).toList(),
+                          onChanged: (newValue){
+                            setState(() {
+                              montDropdownvalue = newValue as String;
+                            });
+                          },
+                        ),
 
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Center(
-
-                    child: DropdownButton(
-                      value: dropdownvalue,
-                      items:items.map((String items) {
-                        return DropdownMenuItem(
-                            value: items,
-                            child: Text(items)
-                        );
-                      }
-                      ).toList(),
-                      onChanged: (newValue){
-                        setState(() {
-                          dropdownvalue = newValue as String;
-                        });
-                      },
+                      )
                     ),
-                  )
+                    Container(
+                        padding: EdgeInsets.all(10),
+                        child: Center(
+                          child: DropdownButton(
+                            value: dayDropdownvalue,
+                            items:day.map((day) {
+                              return DropdownMenuItem(
+                                  value: day,
+                                  child: Text(day)
+                              );
+                            }
+                            ).toList(),
+                            onChanged: (newValue){
+                              setState(() {
+                                dayDropdownvalue = newValue as String;
+                              });
+                            },
+                          ),
+
+                        )
+                    ),
+                  ],
+
+
                 ),
+
+
+
           /////////나이  끝
                 Container(
                   padding: EdgeInsets.all(10),
@@ -196,7 +225,6 @@ var _selectedValue = '24';8*/
                     ),
                   ),
                 ),
-
 
                 Container(
                   padding: EdgeInsets.all(10),
@@ -234,6 +262,7 @@ var _selectedValue = '24';8*/
                         print(passwordController.text);
                         print(nicknameController.text);
                         print(introductionController.text);
+                        print(yearController.text);
 
                       },
                     )),
