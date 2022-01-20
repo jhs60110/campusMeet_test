@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
             primarySwatch:  createMaterialColor(Color(0xffff375c))
+         , visualDensity: VisualDensity.adaptivePlatformDensity,
         ), home: LoginPage());
 
   }
