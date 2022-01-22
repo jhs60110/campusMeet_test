@@ -3,6 +3,8 @@ import 'package:campus_meet/main.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 import 'package:flutter/services.dart';
 
+import 'home_screen.dart';
+
 enum Gender { WOMEN, MAN }
 
 class SignUpScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class _State extends State<SignUpScreen> {
   TextEditingController ageController = TextEditingController();
   TextEditingController idController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordEController = TextEditingController();
   TextEditingController nicknameController = TextEditingController();
   TextEditingController introductionController = TextEditingController();
   TextEditingController yearController = TextEditingController();
@@ -45,6 +48,15 @@ var _selectedValue = '24';8*/
     } //1 3 5 7 8 10 12 <- 31일
     //2월은? 2개?
     //4 6 9 11 <- 30일
+    String? validateEPassword(String? value) {
+      if (value != passwordController) {
+        // The user haven't typed anything
+        return "비밀번호가 일치하지 않습니다~.";
+      }
+      else {
+        return null;
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +69,6 @@ var _selectedValue = '24';8*/
           key: formkey,
           child: Column(
             children: <Widget>[
-
               Container(
                   width: 380,
                   height: 150,
@@ -74,12 +85,18 @@ var _selectedValue = '24';8*/
 
               Container(
                 padding: EdgeInsets.all(10),
-                child: TextField(
+                child: TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: '이름',
                   ),
+                  validator: Validators.compose([
+                    Validators.required('Password is required'),
+                    Validators.patternString(
+                        r'^(?=.*?[ㄱ-힣]).{2,5}$', //한국어 검사는 없어? 최댓값지정해야하나?
+                        '이름을 입력해주세요')
+                  ]),
                 ),
               ), //이름
 
@@ -87,13 +104,18 @@ var _selectedValue = '24';8*/
               // https://stackoverflow.com/questions/49577781/how-to-create-number-input-field-in-flutter
               Container(
                 padding: EdgeInsets.all(10),
-                child: TextField(
-                  keyboardType: TextInputType.number, //안뜨는
+                child: TextFormField(
+                  keyboardType: TextInputType.number, //안뜨는데?
                   controller: studentIDController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: '학번', //텍스트필드말고 숫자만?데 두자리?
                   ),
+                  validator: Validators.compose([
+                    Validators.required('학번을 입력해주세요'),
+                    Validators.patternString(
+                        r'^(?=.*?[0-9]).{1,2}$', '압헉년도 2자리입니다.')
+                  ]),
                 ),
               ),
               Container(
@@ -102,7 +124,7 @@ var _selectedValue = '24';8*/
                   controller: nicknameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: '별명',
+                    labelText: '별명', //별명이 필수인가?
                   ),
                 ),
               ),
@@ -123,20 +145,26 @@ var _selectedValue = '24';8*/
                   ]),
                 ),
               ),
-
-              //비밀번호 확인
-
-              /*Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    controller: universityController,
+              Container(
+                //비밀번호확
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: TextFormField(
+                    obscureText: true,
+                    controller: passwordEController,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '학교', //텍스트필드말고 학교찾기 P따로 뺴
-                    ),
-                  ),
-                ),*/
-
+                       border: OutlineInputBorder(), labelText: 'Password'),
+                    //validateEPassword:
+                  validator: (value){
+                      if (value == passwordController.text){
+                        print("비밀번호가 일치합니다");
+                      }
+                      else{
+                        print('비밀번호가 일치하지 않습니다벨');
+                      }
+                  },
+                ),
+              ),
+              //비밀번호 확인
               Container(
                 padding: EdgeInsets.all(10),
                 child: Row(
@@ -145,13 +173,19 @@ var _selectedValue = '24';8*/
                     SizedBox(
                       //padding설
                       width: MediaQuery.of(context).size.width * 0.35,
-                      child: TextField(
+                      child: TextFormField(
                         keyboardType: TextInputType.number,
                         controller: yearController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: '년도',
+                          labelText: '출생년도',
                         ),
+                        validator: Validators.compose([
+                          Validators.required('출생년도를 입력해주세요'),
+                          Validators.patternString(
+                              r'^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)].{3,4}$',
+                              'ex) 1999')
+                        ]),
                       ),
                     ),
                     SizedBox(
@@ -226,26 +260,39 @@ var _selectedValue = '24';8*/
                 ],
               ),
 // https://api.flutter.dev/flutter/material/Radio-class.html 값을 어떻게 갖고오
-
               Container(
                 height: 50,
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: RaisedButton(
-                  textColor: Colors.white,
-                  color: color,
-                  child: Text('확인'),
+                width: 250,
+                decoration: BoxDecoration(
+                    color: Color(0xffff375c),
+                    borderRadius: BorderRadius.circular(20)),
+                child: FlatButton(
                   onPressed: () {
-                    print(nameController.text);
-                    print(universityController.text);
-                    print(studentIDController.text);
-                    print(genderController.text);
-                    print(ageController.text);
-                    print(idController.text);
-                    print(passwordController.text);
-                    print(nicknameController.text);
-                    print(introductionController.text);
-                    print(yearController.text);
+                    //print(nameController.text);
+                    //print(passwordController.text);
+                    print('이름: ' + nameController.text);
+                    print('학교: ' + universityController.text);
+                    print('학번: ' + studentIDController.text);
+                    print('성별: ' + genderController.text);
+                    print('나이?없음' + ageController.text);
+                    print('아이디없음' + idController.text);
+                    print('비밀번호: ' + passwordController.text);
+                    print('비밀번호확인: ' + passwordEController.text);
+                    print('별명: ' + nicknameController.text);
+                    print('한줄소개: ' + introductionController.text);
+                    print('출생년: ' + yearController.text);
+                    if (formkey.currentState!.validate() && passwordController.text == passwordEController.text) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => HomeScreen()));
+                      print("Validated");
+                    } else {
+                      print("Not Validated");
+                    }
                   },
+                  child: Text(
+                    '회원가입',
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                  ),
                 ),
               ),
             ],

@@ -14,7 +14,7 @@ class _State extends State<LoginPage> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   String? validatePassword(String value) {
     if (value.isEmpty) {
-      return "* 필";
+      return "* 필수";
     } else if (value.length < 8) {
       return "비밀번호는 8자리 이상입니다.";
     } else if (value.length > 15) {
@@ -44,7 +44,7 @@ class _State extends State<LoginPage> {
                     child: Container(
                         width: 200,
                         height: 150,
-                        child: Image.asset('asset/images/flutter-logo.png')),
+                        child: Image.asset('asset/campusMeetLogo.png')),
                   ), //캠퍼스밋이미지가져와
                 ),
                 Padding(
