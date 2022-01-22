@@ -2,7 +2,6 @@ import 'package:campus_meet/screens/SignUp_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
-
 import 'home_screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -117,7 +116,7 @@ class _State extends State<LoginPage> {
                     FlatButton(
                       textColor: Colors.pinkAccent,
                       child: Text(
-                        'Sign in',
+                        'Sign Up',
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {

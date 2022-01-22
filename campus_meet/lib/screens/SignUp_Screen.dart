@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:campus_meet/main.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 import 'package:flutter/services.dart';
-
+import 'package:intl/intl.dart';
 import 'home_screen.dart';
 
 enum Gender { WOMEN, MAN }
@@ -36,6 +36,7 @@ var _selectedValue = '24';8*/
   Widget build(BuildContext context) {
     GlobalKey<FormState> formkey = GlobalKey<FormState>();
     Color color = Color(0xffff375c);
+    //https://kor.pakostnici.com/408272-how-to-select-birth-date-ZRRTII 날짜 관련 참고
     List month = [];
     for (int i = 1; i < 13; i++) {
       String ii = i.toString();
@@ -94,7 +95,7 @@ var _selectedValue = '24';8*/
                   validator: Validators.compose([
                     Validators.required('Password is required'),
                     Validators.patternString(
-                        r'^(?=.*?[ㄱ-힣]).{2,5}$', //한국어 검사는 없어? 최댓값지정해야하나?
+                        r'^(?=.*?[ㄱ-힣]).{2,5}$', //한국어 검사는 없어? 최댓값지정해야하나? //pass
                         '이름을 입력해주세요')
                   ]),
                 ),
@@ -154,12 +155,12 @@ var _selectedValue = '24';8*/
                     decoration: InputDecoration(
                        border: OutlineInputBorder(), labelText: 'Password'),
                     //validateEPassword:
-                  validator: (value){
+                  validator: (value){ //애러메세지 띄워
                       if (value == passwordController.text){
-                        print("비밀번호가 일치합니다");
+                        //print("비밀번호가 일치합니다");
                       }
                       else{
-                        print('비밀번호가 일치하지 않습니다벨');
+                        //print('비밀번호가 일치하지 않습니다벨');
                       }
                   },
                 ),
@@ -260,7 +261,7 @@ var _selectedValue = '24';8*/
                 ],
               ),
 // https://api.flutter.dev/flutter/material/Radio-class.html 값을 어떻게 갖고오
-              Container(
+              Container( // 회원가입 조건 하나라도 누락 시 색 죽은색/ 조건 무두 완료시 빨
                 height: 50,
                 width: 250,
                 decoration: BoxDecoration(
