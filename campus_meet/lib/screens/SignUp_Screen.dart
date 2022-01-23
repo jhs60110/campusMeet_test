@@ -82,7 +82,8 @@ var _selectedValue = '24';8*/
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
                         fontSize: 25),
-                  )),
+                  )
+              ),
 
               Container(
                 padding: EdgeInsets.all(10),

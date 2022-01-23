@@ -4,12 +4,12 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 import 'home_screen.dart';
 
-class LoginPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _State();
 }
 
-class _State extends State<LoginPage> {
+class _State extends State<SignInPage> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   String? validatePassword(String value) {
     if (value.isEmpty) {
@@ -95,10 +95,12 @@ class _State extends State<LoginPage> {
                     onPressed: () {
                       //print(nameController.text);
                       //print(passwordController.text);
+
                       if (formkey.currentState!.validate()) {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (_) => HomeScreen()));
-                        print("Validated");
+                        print("Validated"); // 사용자 정보 맞았을때 넘어가야하는데
+                                            //지금은 구현 못하는게 맞는지? 일단 했다 치고
                       } else {
                         print("Not Validated");
                       }

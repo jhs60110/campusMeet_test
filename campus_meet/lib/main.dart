@@ -4,6 +4,7 @@ import 'package:campus_meet/screens/my_page_screen.dart';
 import 'package:campus_meet/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_meet/screens/SignIn_Screen.dart';
+import 'package:campus_meet/screens/University_setting_screen.dart';
 
 
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch:  createMaterialColor(Color(0xffff375c))
          , visualDensity: VisualDensity.adaptivePlatformDensity,
-        ), home: LoginPage());
+        ), home: SignInPage());
 
   }
 }
