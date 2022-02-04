@@ -1,3 +1,4 @@
+import 'package:campus_meet/routes.dart';
 import 'package:campus_meet/screens/home_screen.dart';
 import 'package:campus_meet/screens/my_meeting_screen.dart';
 import 'package:campus_meet/screens/my_page_screen.dart';
@@ -36,11 +37,61 @@ class MyApp extends StatelessWidget {
     }
 
     return MaterialApp(
+        routes: Routes.routes,
         theme: ThemeData(
             primarySwatch:  createMaterialColor(Color(0xffff375c))
          , visualDensity: VisualDensity.adaptivePlatformDensity,
         ), home: SignInPage());
 
+  }
+}
+
+//?
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+void openPage(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(
+    builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Second page'),
+        ),
+        body: const Center(
+          child: Text(
+            'This is the Second page',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      );
+    },
+  ));
+}
+class MyFirstWidget extends StatelessWidget {
+  MyFirstWidget({required Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        title: const Text('AppBar Example'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Next page',
+            onPressed: () {
+              openPage(context);
+            },
+          ),
+        ],
+      ),
+      body: const Center(
+        child: Text(
+          'This is my first page',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
   }
 }
 /*void main() {

@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:campus_meet/just_test/post_model.dart';
+import 'package:campus_meet/model/post_model.dart';
 // 인터넷에서 데이터를 가져오는데 시간이 걸리므로 비동기 함수로 하자.
 Future<List<Post>> fetchPost() async { //인터넷에서 데이터를 가져오려 만든 함수 Feature <List<Post>>를 반환
   final response =

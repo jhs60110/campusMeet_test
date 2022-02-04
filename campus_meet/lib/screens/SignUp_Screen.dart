@@ -107,6 +107,9 @@ var _selectedValue = '24';8*/
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
+
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(2)],
+
                   keyboardType: TextInputType.number, //안뜨는데?
                   controller: studentIDController,
                   decoration: InputDecoration(
@@ -114,9 +117,9 @@ var _selectedValue = '24';8*/
                     labelText: '학번', //텍스트필드말고 숫자만?데 두자리?
                   ),
                   validator: Validators.compose([
-                    Validators.required('학번을 입력해주세요'),
-                    Validators.patternString(
-                        r'^(?=.*?[0-9]).{1,2}$', '압헉년도 2자리입니다.')
+                    Validators.required('학번을 입력해주세요')
+                    // Validators.patternString(
+                    //     r'^(?=.*?[0-9]).{1,2}$', '압헉년도 2자리입니다.')
                   ]),
                 ),
               ),

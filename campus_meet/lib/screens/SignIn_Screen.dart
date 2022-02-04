@@ -2,6 +2,7 @@ import 'package:campus_meet/screens/SignUp_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
+import 'University_setting_screen.dart';
 import 'home_screen.dart';
 
 class SignInPage extends StatefulWidget {
@@ -127,7 +128,7 @@ class _State extends State<SignInPage> {
                           MaterialPageRoute(
                               builder: (context) => SignUpScreen()),
                         );
-                        //요기서 화면 바 SignUpScreen() RadioApp() DropDown()
+                        //요기서 화면 바 SettingUnivPage() RadioApp() DropDown()
                         //signup screen
                       },
                     )
