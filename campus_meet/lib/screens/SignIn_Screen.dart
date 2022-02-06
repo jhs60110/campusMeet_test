@@ -1,3 +1,4 @@
+import 'package:campus_meet/just_test/timer_2.dart';
 import 'package:campus_meet/screens/SignUp_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -126,8 +127,9 @@ class _State extends State<SignInPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignUpScreen()),
+                              builder: (context) => SettingUnivPage()),
                         );
+                        //SignUpScreen
                         //요기서 화면 바 SettingUnivPage() RadioApp() DropDown()
                         //signup screen
                       },

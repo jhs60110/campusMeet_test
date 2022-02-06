@@ -135,6 +135,9 @@ class _State extends State<SettingUnivPage> {
                             },
                           ),
                         ),
+
+
+
                         Container(
                           padding: EdgeInsets.only(bottom: 20),
                           child: Container(
@@ -150,7 +153,7 @@ class _State extends State<SettingUnivPage> {
                                 List univEmail = select_univ[0].split('.');
                                 print(univEmail); //학교 url중 학교 이름 들어간애만 잘라서 보내@
                                 Navigator.of(context).pushNamed(Routes.checkUnivEmailScreen,
-                                      arguments: {"univeEmail":univEmail[1]});
+                                      arguments: {"univEmail":univEmail[1]});
                               },
                               child: Text(
                                 '다음',

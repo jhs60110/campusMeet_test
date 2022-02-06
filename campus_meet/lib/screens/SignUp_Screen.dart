@@ -4,6 +4,7 @@ import 'package:wc_form_validators/wc_form_validators.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'home_screen.dart';
+import 'package:flutter/services.dart';
 
 enum Gender { WOMEN, MAN }
 
@@ -24,6 +25,8 @@ class _State extends State<SignUpScreen> {
   TextEditingController nicknameController = TextEditingController();
   TextEditingController introductionController = TextEditingController();
   TextEditingController yearController = TextEditingController();
+
+  // final RegExp _regExp = RegExp(r'[\uac00-\ud7af]', unicode: true);
   // 안쓰는거 지워 !
   String montDropdownvalue = '1';
   String dayDropdownvalue = '1';
@@ -31,6 +34,12 @@ class _State extends State<SignUpScreen> {
 
 /*var _ageList = ['19', '20', '21', '22', '23', '24', '25'];
 var _selectedValue = '24';8*/
+  @override
+  void initState() {
+    super.initState();
+
+    nameController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +62,7 @@ var _selectedValue = '24';8*/
       if (value != passwordController) {
         // The user haven't typed anything
         return "비밀번호가 일치하지 않습니다~.";
-      }
-      else {
+      } else {
         return null;
       }
     }
@@ -82,33 +90,57 @@ var _selectedValue = '24';8*/
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
                         fontSize: 25),
-                  )
-              ),
+                  )),
 
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[ㄱ-ㅎ|가-힣|ㆍ|ᆢ]')),
+                    LengthLimitingTextInputFormatter(7)
+                  ],
                   controller: nameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: '이름',
                   ),
-                  validator: Validators.compose([
-                    Validators.required('Password is required'),
-                    Validators.patternString(
-                        r'^(?=.*?[ㄱ-힣]).{2,5}$', //한국어 검사는 없어? 최댓값지정해야하나? //pass
-                        '이름을 입력해주세요')
-                  ]),
+                  autovalidateMode: AutovalidateMode.always,
+                  onChanged: (dynamic val) {},
+                   validator: Validators.compose([
+                      Validators.required('Name is required'),
+                      Validators.patternString(
+                          r'^(?=.*?[ㄱ-힣]).{2,8}$', //한국어 검사는 없어? 최댓값지정해야하나? //pass
+                          '이름을 입력해주세요')
+                    ]),
+
                 ),
-              ), //이름
+              ),
+
+              // padding: EdgeInsets.all(10),
+              // child: TextFormField(
+              //   controller: nameController,
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(),
+              //     labelText: '이름',
+              //   ),
+              //   validator: Validators.compose([
+              //     Validators.required('Password is required'),
+              //     Validators.patternString(
+              //         r'^(?=.*?[ㄱ-힣]).{2,5}$', //한국어 검사는 없어? 최댓값지정해야하나? //pass
+              //         '이름을 입력해주세요')
+              //   ]),
+              // ),
+              //이름
 
               // 학번 입력받을때 숫자패드만 보이게 아래 참고
               // https://stackoverflow.com/questions/49577781/how-to-create-number-input-field-in-flutter
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
-
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(2)],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(2)
+                  ],
 
                   keyboardType: TextInputType.number, //안뜨는데?
                   controller: studentIDController,
@@ -125,12 +157,20 @@ var _selectedValue = '24';8*/
               ),
               Container(
                 padding: EdgeInsets.all(10),
-                child: TextField(
+                child: TextFormField(
                   controller: nicknameController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[ㄱ-ㅎ|가-힣|ㆍ|ᆢ|a-z|A-Z]')),
+                    LengthLimitingTextInputFormatter(7)
+                  ],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: '별명', //별명이 필수인가?
                   ),
+                  validator: Validators.compose([
+                    Validators.required('영문 또는 한글 최대 7글자')
+                  ]),
+
                 ),
               ),
               Container(
@@ -154,18 +194,18 @@ var _selectedValue = '24';8*/
                 //비밀번호확
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: TextFormField(
-                    obscureText: true,
-                    controller: passwordEController,
-                    decoration: InputDecoration(
-                       border: OutlineInputBorder(), labelText: 'Password'),
-                    //validateEPassword:
-                  validator: (value){ //애러메세지 띄워
-                      if (value == passwordController.text){
-                        //print("비밀번호가 일치합니다");
-                      }
-                      else{
-                        //print('비밀번호가 일치하지 않습니다벨');
-                      }
+                  obscureText: true,
+                  controller: passwordEController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Password'),
+                  //validateEPassword:
+                  validator: (value) {
+                    //애러메세지 띄워
+                    if (value == passwordController.text) {
+                      //print("비밀번호가 일치합니다");
+                    } else {
+                      //print('비밀번호가 일치하지 않습니다벨');
+                    }
                   },
                 ),
               ),
@@ -179,6 +219,10 @@ var _selectedValue = '24';8*/
                       //padding설
                       width: MediaQuery.of(context).size.width * 0.35,
                       child: TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(4)
+                        ],
                         keyboardType: TextInputType.number,
                         controller: yearController,
                         decoration: InputDecoration(
@@ -265,7 +309,8 @@ var _selectedValue = '24';8*/
                 ],
               ),
 // https://api.flutter.dev/flutter/material/Radio-class.html 값을 어떻게 갖고오
-              Container( // 회원가입 조건 하나라도 누락 시 색 죽은색/ 조건 무두 완료시 빨
+              Container(
+                // 회원가입 조건 하나라도 누락 시 색 죽은색/ 조건 무두 완료시 빨
                 height: 50,
                 width: 250,
                 decoration: BoxDecoration(
@@ -286,7 +331,8 @@ var _selectedValue = '24';8*/
                     print('별명: ' + nicknameController.text);
                     print('한줄소개: ' + introductionController.text);
                     print('출생년: ' + yearController.text);
-                    if (formkey.currentState!.validate() && passwordController.text == passwordEController.text) {
+                    if (formkey.currentState!.validate() &&
+                        passwordController.text == passwordEController.text) {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (_) => HomeScreen()));
                       print("Validated");
