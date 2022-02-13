@@ -3,6 +3,7 @@ import 'package:campus_meet/main.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import ' terms _screen.dart';
 import 'home_screen.dart';
 import 'package:flutter/services.dart';
 
@@ -14,17 +15,16 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _State extends State<SignUpScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController universityController = TextEditingController();
-  TextEditingController studentIDController = TextEditingController();
-  TextEditingController genderController = TextEditingController(); //라디오버튼?
-  TextEditingController ageController = TextEditingController();
-  TextEditingController idController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController univ_id = TextEditingController();
+  TextEditingController entry_year = TextEditingController();
+  TextEditingController sex = TextEditingController(); //라디오버튼?
+  TextEditingController id = TextEditingController();
+  TextEditingController pwd = TextEditingController();
   TextEditingController passwordEController = TextEditingController();
-  TextEditingController nicknameController = TextEditingController();
-  TextEditingController introductionController = TextEditingController();
-  TextEditingController yearController = TextEditingController();
+  TextEditingController nick_name = TextEditingController();
+  TextEditingController introduce_text = TextEditingController();
+  TextEditingController born_year = TextEditingController(); // 생년월일 하나로 받아간다!
 
   // final RegExp _regExp = RegExp(r'[\uac00-\ud7af]', unicode: true);
   // 안쓰는거 지워 !
@@ -38,7 +38,7 @@ var _selectedValue = '24';8*/
   void initState() {
     super.initState();
 
-    nameController = TextEditingController();
+    name = TextEditingController();
   }
 
   @override
@@ -59,7 +59,7 @@ var _selectedValue = '24';8*/
     //2월은? 2개?
     //4 6 9 11 <- 30일
     String? validateEPassword(String? value) {
-      if (value != passwordController) {
+      if (value != pwd) {
         // The user haven't typed anything
         return "비밀번호가 일치하지 않습니다~.";
       } else {
@@ -69,8 +69,16 @@ var _selectedValue = '24';8*/
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('CampusMeet'),
-        backgroundColor: color,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -99,18 +107,18 @@ var _selectedValue = '24';8*/
                     FilteringTextInputFormatter.allow(RegExp('[ㄱ-ㅎ|가-힣|ㆍ|ᆢ]')),
                     LengthLimitingTextInputFormatter(7)
                   ],
-                  controller: nameController,
+                  controller: name,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                  //  border: OutlineInputBorder(),
                     labelText: '이름',
                   ),
                   autovalidateMode: AutovalidateMode.always,
                   onChanged: (dynamic val) {},
                    validator: Validators.compose([
-                      Validators.required('Name is required'),
-                      Validators.patternString(
-                          r'^(?=.*?[ㄱ-힣]).{2,8}$', //한국어 검사는 없어? 최댓값지정해야하나? //pass
-                          '이름을 입력해주세요')
+                     // Validators.required('Name is required'),
+                     // Validators.patternString(
+                     //      r'^(?=.*?[ㄱ-힣]).{2,8}$', //한국어 검사는 없어? 최댓값지정해야하나? //pass
+                     //      '이름을 입력해주세요')
                     ]),
 
                 ),
@@ -118,7 +126,7 @@ var _selectedValue = '24';8*/
 
               // padding: EdgeInsets.all(10),
               // child: TextFormField(
-              //   controller: nameController,
+              //   controller: name,
               //   decoration: InputDecoration(
               //     border: OutlineInputBorder(),
               //     labelText: '이름',
@@ -141,15 +149,14 @@ var _selectedValue = '24';8*/
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(2)
                   ],
-
                   keyboardType: TextInputType.number, //안뜨는데?
-                  controller: studentIDController,
+                  controller: entry_year,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                 //   border: OutlineInputBorder(),
                     labelText: '학번', //텍스트필드말고 숫자만?데 두자리?
                   ),
                   validator: Validators.compose([
-                    Validators.required('학번을 입력해주세요')
+                    Validators.required('입학년도 2자리 입니다.')
                     // Validators.patternString(
                     //     r'^(?=.*?[0-9]).{1,2}$', '압헉년도 2자리입니다.')
                   ]),
@@ -158,13 +165,13 @@ var _selectedValue = '24';8*/
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextFormField(
-                  controller: nicknameController,
+                  controller: nick_name,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp('[ㄱ-ㅎ|가-힣|ㆍ|ᆢ|a-z|A-Z]')),
                     LengthLimitingTextInputFormatter(7)
                   ],
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                  //  border: OutlineInputBorder(),
                     labelText: '별명', //별명이 필수인가?
                   ),
                   validator: Validators.compose([
@@ -179,9 +186,10 @@ var _selectedValue = '24';8*/
                 child: TextFormField(
                   //비밀번호 조건
                   obscureText: true,
-                  controller: passwordController,
+                  controller: pwd,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Password'),
+                    //  border: OutlineInputBorder(),
+                      labelText: 'Password'),
                   validator: Validators.compose([
                     Validators.required('Password is required'),
                     Validators.patternString(
@@ -197,11 +205,12 @@ var _selectedValue = '24';8*/
                   obscureText: true,
                   controller: passwordEController,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Password'),
+                    //  border: OutlineInputBorder(),
+                      labelText: 'Password'),
                   //validateEPassword:
                   validator: (value) {
                     //애러메세지 띄워
-                    if (value == passwordController.text) {
+                    if (value == pwd.text) {
                       //print("비밀번호가 일치합니다");
                     } else {
                       //print('비밀번호가 일치하지 않습니다벨');
@@ -224,9 +233,9 @@ var _selectedValue = '24';8*/
                           LengthLimitingTextInputFormatter(4)
                         ],
                         keyboardType: TextInputType.number,
-                        controller: yearController,
+                        controller: born_year,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                        //  border: OutlineInputBorder(),
                           labelText: '출생년도',
                         ),
                         validator: Validators.compose([
@@ -318,23 +327,22 @@ var _selectedValue = '24';8*/
                     borderRadius: BorderRadius.circular(20)),
                 child: FlatButton(
                   onPressed: () {
-                    //print(nameController.text);
-                    //print(passwordController.text);
-                    print('이름: ' + nameController.text);
-                    print('학교: ' + universityController.text);
-                    print('학번: ' + studentIDController.text);
-                    print('성별: ' + genderController.text);
-                    print('나이?없음' + ageController.text);
-                    print('아이디없음' + idController.text);
-                    print('비밀번호: ' + passwordController.text);
+                    //print(name.text);
+                    //print(pwd.text);
+                    print('이름: ' + name.text);
+                    print('학교: ' + univ_id.text);
+                    print('학번: ' + entry_year.text);
+                    print('성별: ' + sex.text);
+                    print('아이디없음' + id.text);
+                    print('비밀번호: ' + pwd.text);
                     print('비밀번호확인: ' + passwordEController.text);
-                    print('별명: ' + nicknameController.text);
-                    print('한줄소개: ' + introductionController.text);
-                    print('출생년: ' + yearController.text);
+                    print('별명: ' + nick_name.text);
+                    print('한줄소개: ' + introduce_text.text);
+                    print('출생년: ' + born_year.text);
                     if (formkey.currentState!.validate() &&
-                        passwordController.text == passwordEController.text) {
+                        pwd.text == passwordEController.text) {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => HomeScreen()));
+                          MaterialPageRoute(builder: (_) => TermsPage()));
                       print("Validated");
                     } else {
                       print("Not Validated");

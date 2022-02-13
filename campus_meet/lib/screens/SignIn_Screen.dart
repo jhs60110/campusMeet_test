@@ -1,8 +1,12 @@
 import 'package:campus_meet/just_test/timer_2.dart';
 import 'package:campus_meet/screens/SignUp_Screen.dart';
+import 'package:campus_meet/screens/resetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
+import 'findPasswordConfirmation_screen.dart';
+import 'findPassword_screen.dart';
+import ' terms _screen.dart';
 import 'University_setting_screen.dart';
 import 'home_screen.dart';
 
@@ -31,7 +35,16 @@ class _State extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CampusMeet'),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -39,60 +52,79 @@ class _State extends State<SignInPage> {
             key: formkey,
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 60.0),
-                  child: Center(
-                    child: Container(
-                        width: 200,
-                        height: 150,
-                        child: Image.asset('asset/campusMeetLogo.png')),
-                  ), //캠퍼스밋이미지가져와
+                Container(
+                  margin: EdgeInsets.only(bottom: 40) ,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 60.0),
+                    child: Center(
+                      child: Container(
+                          width: 138,
+                          height: 126,
+                          child: Image.asset('asset/campusMeetLogo.png')),
+                    ), //캠퍼스밋이미지가져와
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: TextFormField(
-                      //controller: nameController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Email',
-                          hintText: 'Enter valid email id as abc@gmail.com'),
-                      validator: MultiValidator([
-                        RequiredValidator(errorText: "* Required"),
-                        EmailValidator(errorText: "Enter valid email id"),
-                      ])),
+                  child: Container(
+                    height: 46,
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder( borderRadius: BorderRadius.circular(31.0)),
+                            //labelText: 'Email',
+                            hintText: '이메일'),
+                        validator: MultiValidator([
+                         // RequiredValidator(errorText: "* Required"),
+                         // EmailValidator(errorText: "Enter valid email id"),
+                        ])
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 15, bottom: 0),
-                  child: TextFormField(
-                    obscureText: true,
-                    //controller: passwordController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                        hintText: 'Enter secure password'),
-                    validator: Validators.compose([
-                      Validators.required('Password is required'),
-                      Validators.patternString(
-                          r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                          '8자리이상,숫자,특수문자를 포함해주세요.')
-                    ]),
-                    //validatePassword,        //Function to check validation
+                      left: 15.0, right: 15.0, top: 6, bottom: 0),
+                  child: Container(
+                    height: 46,
+                    child: TextFormField(
+                      obscureText: true,
+                      //controller: passwordController,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(31.0)),
+                        //  labelText: 'Password',
+                          hintText: '비밀번호'),
+                      validator: Validators.compose([
+                      //  Validators.required('Password is required'),
+                      //   Validators.patternString(
+                      //       r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                      //       '8자리이상,숫자,특수문자를 포함해주세요.')
+                      ]),
+                      //validatePassword,        //Function to check validation
+                    ),
                   ),
                 ),
-                FlatButton(
-                  onPressed: () {
-                    //forgot password screen
-                  },
-                  textColor: Colors.pinkAccent,
-                  child: Text('Forgot Password'),
+                Container(
+                    alignment: Alignment.topRight,
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FindPassword()),
+                      );
+                      //SignUpScreen
+                      //요기서 화면 바 SettingUnivPage() RadioApp() DropDown()
+                      //signup screen
+                    },
+                    child: Text('비밀번호 찾기'),
+                  ),
                 ),
                 Container(
                   height: 50,
-                  width: 250,
+                  width: 340,
+                  margin: EdgeInsets.only(top: 20),
                   decoration: BoxDecoration(
                       color: Color(0xffff375c),
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: FlatButton(
                     onPressed: () {
                       //print(nameController.text);
@@ -108,19 +140,20 @@ class _State extends State<SignInPage> {
                       }
                     },
                     child: Text(
-                      'Login',
+                      '로그인',
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
                   ),
                 ),
                 Container(
-                    child: Row(
+                  margin: EdgeInsets.only(top: 50),
+                    child: Column(
                   children: <Widget>[
-                    Text('Does not have account?'),
+                    Text('처음 오셨나요?'),
                     FlatButton(
-                      textColor: Colors.pinkAccent,
+                      //textColor: Colors.pinkAccent,
                       child: Text(
-                        'Sign Up',
+                        '회원가입 하러가기 🐾',
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {
@@ -137,6 +170,8 @@ class _State extends State<SignInPage> {
                   ],
                   mainAxisAlignment: MainAxisAlignment.center,
                 ))
+
+
               ],
             )),
       ),
