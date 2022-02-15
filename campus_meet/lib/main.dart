@@ -40,8 +40,34 @@ class MyApp extends StatelessWidget {
         routes: Routes.routes,
         theme: ThemeData(
            primarySwatch:  createMaterialColor(Color(0xffff375c))
-         , visualDensity: VisualDensity.adaptivePlatformDensity,
-        ), home: SignInPage());
+         , //visualDensity: VisualDensity.adaptivePlatformDensity,
+        ), home: SignInPage()
+
+
+    );
+
+    // return MaterialApp(
+    //   title: 'Campus Meet',
+    //   theme: ThemeData(
+    //       primarySwatch: createMaterialColor(Color(0xffff375c)),
+    //       scaffoldBackgroundColor: Color(0xFFFFFFFF)
+    //   ),
+    //   home: DefaultTabController(
+    //     length: 3,
+    //     child: Scaffold(
+    //       body: TabBarView(
+    //         physics: NeverScrollableScrollPhysics(),
+    //         children: <Widget>[
+    //
+    //           HomeScreen(),
+    //           MyMeetingScreen(),
+    //           MyPageScreen(),
+    //         ],
+    //       ),
+    //       bottomNavigationBar: BottomBar(),
+    //     ),
+    //   ),
+    // );
 
   }
 }

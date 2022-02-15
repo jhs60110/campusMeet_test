@@ -78,7 +78,7 @@ class _State extends State<SettingUnivPage> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 25),
+                                  fontSize: 22),
                             )),
                         // Row(
                         // children: [
@@ -164,11 +164,14 @@ class _State extends State<SettingUnivPage> {
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     Container(
+
                                       decoration: BoxDecoration(
+                                         // color:Colors.grey ,
                                           border: Border(bottom: BorderSide(color: index +1 == search_univ_result.length
                                               ? Colors.white : Colors.grey.shade300))),
 
                                       child: TextButton(
+
                                         onPressed: () async {
                                           select_univ = [];
                                           // print("index: " + search_univ_result[index]);
@@ -187,7 +190,8 @@ class _State extends State<SettingUnivPage> {
                                             style: TextStyle(
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15)
+                                            fontSize: 15),
+                                          textAlign: TextAlign.left
                                         ),
 
                                       ),
