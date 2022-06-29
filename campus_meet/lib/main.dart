@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:campus_meet/screens/SignIn_Screen.dart';
 import 'package:campus_meet/screens/University_setting_screen.dart';
 
-
+bool isLogined = false;
 
 void main() => runApp(MyApp());
 
@@ -35,39 +35,39 @@ class MyApp extends StatelessWidget {
       });
       return MaterialColor(color.value, swatch);
     }
+    //
+    // return MaterialApp(
+    //     routes: Routes.routes,
+    //     theme: ThemeData(
+    //        primarySwatch:  createMaterialColor(Color(0xffff375c))
+    //      , //visualDensity: VisualDensity.adaptivePlatformDensity,
+    //     ), home: SignInPage()
+    //
+    //
+    // );
 
     return MaterialApp(
-        routes: Routes.routes,
-        theme: ThemeData(
-           primarySwatch:  createMaterialColor(Color(0xffff375c))
-         , //visualDensity: VisualDensity.adaptivePlatformDensity,
-        ), home: SignInPage()
+      title: 'Campus Meet',
+      theme: ThemeData(
+          primarySwatch: createMaterialColor(Color(0xffff375c)),
+          scaffoldBackgroundColor: Color(0xFFFFFFFF)
+      ),
+     home: !isLogined ? SignInPage() : DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: <Widget>[
 
-
+              HomeScreen(),
+              MyMeetingScreen(),
+              MyPageScreen(),
+            ],
+          ),
+          bottomNavigationBar: BottomBar(),
+        ),
+      ),
     );
-
-    // return MaterialApp(
-    //   title: 'Campus Meet',
-    //   theme: ThemeData(
-    //       primarySwatch: createMaterialColor(Color(0xffff375c)),
-    //       scaffoldBackgroundColor: Color(0xFFFFFFFF)
-    //   ),
-    //   home: DefaultTabController(
-    //     length: 3,
-    //     child: Scaffold(
-    //       body: TabBarView(
-    //         physics: NeverScrollableScrollPhysics(),
-    //         children: <Widget>[
-    //
-    //           HomeScreen(),
-    //           MyMeetingScreen(),
-    //           MyPageScreen(),
-    //         ],
-    //       ),
-    //       bottomNavigationBar: BottomBar(),
-    //     ),
-    //   ),
-    // );
 
   }
 }
